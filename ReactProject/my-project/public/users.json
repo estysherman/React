@@ -1,0 +1,14 @@
+[
+    {
+        "userName" : "Tiger",
+        "password" : "1234",
+        "email" : "tiger@gmail.com",
+        "pic" : "Tiger.png"
+    },
+    {
+        "userName" : "Lion",
+        "password" : "1234",
+        "email" : "lion@gmail.com",
+        "pic" : "Lion.jpg"
+    }
+]
