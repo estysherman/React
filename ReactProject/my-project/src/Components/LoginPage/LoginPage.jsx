@@ -89,19 +89,5 @@ class LoginPage extends React.Component {
   }
 }
 
-function mapState(state) {
-  const { loggingIn } = state.authentication;
-  return { loggingIn };
-}
 
-const actionCreators = {
-  login: userActions.login,
-  logout: userActions.logout
-  // init: userActions.init
-};
-
-const connectedLoginPage = connect(
-  mapState,
-  actionCreators
-)(LoginPage);
-export { connectedLoginPage as LoginPage };
+export default LoginPage;

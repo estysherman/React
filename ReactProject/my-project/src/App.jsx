@@ -1,13 +1,13 @@
 import './App.css';
-import Login from './Components/Login';
+import LoginPage from './Components/LoginPage/LoginPage';
 import {useState, useEffect} from 'react'
 
 
 function App() {
   const[users, setUsers] = useState([])
 
-  const onLogin = (username, password) => {
-
+  const Login = (username, password) => {
+//loggingIn
   }
 
   const fetchUsers = async() => {
@@ -24,7 +24,7 @@ function App() {
   
   return (
     <div className="App">
-      <Login onLogin={onLogin}/>
+      <Login Login={Login}/>
     </div>
   );
 }
