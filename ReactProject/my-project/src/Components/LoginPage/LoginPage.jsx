@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { userActions } from "../_actions";
+// import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+// import { userActions } from "../_actions";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class LoginPage extends React.Component {
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value.trim() });
   }
 
   handleSubmit(e) {
@@ -31,13 +33,25 @@ class LoginPage extends React.Component {
 
     this.setState({ submitted: true });
     const { username, password } = this.state;
-    if (username && password) {
-      this.props.login(username, password);
+    if (username.length < 4 && password.length < 4 ) {
+        toast("userName or password is shorter than 4 letters")
+        return;
+    }
+    if (username.indexOf("@") > -1){
+        toast("@ is invalid in usreName")
+        return;
+    }
+    const loginSuccess = this.props.login(username, password);
+    if (loginSuccess){
+      //TODO move to next page
+    }
+    else{
+      toast("Invalid userName or password")
     }
   }
 
   render() {
-    const { loggingIn } = this.props;
+    // const { loggingIn } = this.props;
     const { username, password, submitted } = this.state;
     return (
       <div className="col-md-6 col-md-offset-3">
@@ -79,9 +93,10 @@ class LoginPage extends React.Component {
           </div>
           <div className="form-group">
             <button className="btn btn-primary">Login</button>
-            {loggingIn && (
+            <ToastContainer />
+            {/* {loggingIn && (
               <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            )}
+            )} */}
           </div>
         </form>
       </div>
