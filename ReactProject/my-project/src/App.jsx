@@ -8,8 +8,7 @@ function App() {
   const[users, setUsers] = useState([])
   const[isLogdIn, setIsLogdIn] = useState(false)
   const[cart, setCart] = useState([
-    {product:{id:1, name:'Bigonia', price:20.00}, quantity:1},
-    {product:{id:2, name:'Guatamala', price:50.00}, quantity:2},
+    
   ])
 
   const login = (username, password) => {
@@ -48,11 +47,18 @@ function App() {
   }
 
   const addToCart = (product, quantity) => {
-    const cartItem = {product, quantity};
-    const tempCart = [...cart];
-    tempCart.push(cartItem);
-    setCart(tempCart);
+    // const cartItem = {product, quantity};
+
+    const exist = cart.find( x=> x.id === product.id );
+    if(exist){
+      // const tempCart = [...cart]
+      setCart(cart.map(x=> x.id === product.id ? {...exist,quantity:exist.quantity + 1} : x));
+      // setCart(tempCart)
+    }else{
+      setCart([...cart,{...product,quantity:1}]);
+    }
   }
+
 
   useEffect( ()=>{
     fetchUsers();

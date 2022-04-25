@@ -2,7 +2,7 @@ import './Flowers.css';
 import Product from '../Product/Product';
 
 const flowers = [
-    {id: 1001, price: 10.11, name: "cactus", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Singapore_Botanic_Gardens_Cactus_Garden_2.jpg/1280px-Singapore_Botanic_Gardens_Cactus_Garden_2.jpg"},
+    {id: 1001, price: 10.11, name: "Cactus", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Singapore_Botanic_Gardens_Cactus_Garden_2.jpg/1280px-Singapore_Botanic_Gardens_Cactus_Garden_2.jpg"},
     {id: 1002, price: 10.00, name: "Geranium", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Geranium_February_2008-1.jpg/1280px-Geranium_February_2008-1.jpg"},
     {id: 1003, price: 10.00, name: "Pentas lanceolata", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Cologne_Germany_Flora-K%C3%B6ln-Pentas-lanceolata-01.jpg/120px-Cologne_Germany_Flora-K%C3%B6ln-Pentas-lanceolata-01.jpg"},
     {id: 1004, price: 10.00, name: "Tagetes", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc3E9XRWhuS1pkMrU5KWg67UuEUAgmECpajd1bUZuNypWM-FxrCMYF7naeAc3Jgghsihk&usqp=CAU"},

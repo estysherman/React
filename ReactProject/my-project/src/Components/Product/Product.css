@@ -7,27 +7,57 @@
 }
 .name{
     width: 100%;
-    font-size: large;
+    /* font-size: large; */
+    background-color: #b7c4c7; 
+    border: none;
+    color: #000000;
+    padding: 6px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 6px 0px;
+    transition-duration: 0.5s;
+    cursor: pointer;
 }
+.name2 {
+    background-color: white; 
+    color: black; 
+    border: 1px solid #008CBA;
+  }
+  
+  .name2:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+
 .id{
-    display: flexbox;
-    font-size: small;
+    /* display: flexbox; */
+    display: inline-block;
+
 }
 .price{
-    display: flexbox;
-    font-size: small;
+    /* display: flexbox; */
+    display: inline-block;
+    margin-inline-start: 2vw;
 }
+.line_p{
+    display:inline-block;
+    margin-inline-end: 1vw;
+    margin-inline-start: 1vw;
+}
+
 
 .button{
     background-color: #008CBA; 
     border: none;
     color: #fcfffc;
-    padding: 1px 24px;
+    padding: 2px 17%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    display: flex;
+    font-size: 20px;
+    margin:auto;
     transition-duration: 0.5s;
     cursor: pointer;
   

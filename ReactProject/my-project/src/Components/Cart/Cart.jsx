@@ -3,34 +3,46 @@ import './Cart.css';
 
 const Cart = (props) => {
 
-    const getSum = () =>{
+    const getSum = () =>{ //Total cost of all products in the cart
         let sum = 0.0;
         for (let i of props.cart){
             sum+= i.product.price * i.quantity
         }
-        return sum;
+        return sum.toFixed(2);
     };
 
-    const getQuantity = () =>{
-        let quant = 0.0;
+    const getQuantity = () =>{ //Count the products added to the cart
+        let quant = 0;
         for (let i of props.cart){
             quant+= i.quantity
         }
         return quant;
     };
 
+    const emptyCart = () =>{ //Displays a message when the cart is empty
+        let emptyMessage = "The Cart is empty";
+        if (props.cart == 0){
+            return emptyMessage;
+        }
+    };
+    
+
     return (
-        <div>
+        <div className='item'>
            {
                 props.cart.map( item => {
-                    return <div key={item.product.id}>
-                        <h3>{item.product.name}</h3>
-                        <h5>{item.product.price}</h5>
-                        <p>{item.quantity}</p>
+                    return <div  key={item.product.id}>
+                        <h3 className='title'>{item.product.name}</h3>
+                        <img className='img_c' src={item.product.img}/>
+                        <div >
+                            <h5 className='line'>Qty: {item.quantity}</h5>
+                            <h5 className='line'>Price: {item.product.price} ₪</h5>
+                        </div>
                     </div>
                 })
-           }
-           <h2>Total ({getQuantity()}) items: {getSum()} ₪</h2>
+            }
+            <h3 className='emptyMessage'>{emptyCart()} </h3> 
+           <h2 className='total'>Total ({getQuantity()} items): {getSum()}₪</h2>
         </div>
     );
 };
