@@ -9,7 +9,7 @@ const Cart = (props) => {
             sum+= i.product.price * i.quantity
         }
         return sum.toFixed(2);
-    };
+    }
 
     const getQuantity = () =>{ //Count the products added to the cart
         let quant = 0;
@@ -17,16 +17,24 @@ const Cart = (props) => {
             quant+= i.quantity
         }
         return quant;
-    };
+    }
 
     const emptyCart = () =>{ //Displays a message when the cart is empty
         let emptyMessage = "The Cart is empty";
         if (props.cart == 0){
             return emptyMessage;
         }
-    };
-    
+    }
 
+    const add = (product) =>{
+        props.addToCart(product, 1);
+    }
+
+    const remove = (product) =>{
+        props.onRemove(product, 1);
+    }
+    
+console.log(props.cart);
     return (
         <div className='item'>
            {
@@ -38,6 +46,8 @@ const Cart = (props) => {
                             <h5 className='line'>Qty: {item.quantity}</h5>
                             <h5 className='line'>Price: {item.product.price} ₪</h5>
                         </div>
+                        <button onClick={() => remove(item.product)}>-</button>
+                        <button onClick={() => add(item.product)}>+</button>
                     </div>
                 })
             }

@@ -47,18 +47,22 @@ function App() {
   }
 
   const addToCart = (product, quantity) => {
-    // const cartItem = {product, quantity};
-
-    const exist = cart.find( x=> x.id === product.id );
+    const exist = cart.find( x=> x.product.id === product.id );
     if(exist){
-      // const tempCart = [...cart]
-      setCart(cart.map(x=> x.id === product.id ? {...exist,quantity:exist.quantity + 1} : x));
-      // setCart(tempCart)
+      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity + 1} : x));
     }else{
-      setCart([...cart,{...product,quantity:1}]);
+      setCart([...cart,{product:product,quantity:quantity}]);
     }
   }
 
+  const onRemove = (product, quantity) =>{
+    const exist = cart.find((x)=>x.product.id === product.id)
+    if(exist.quantity === 1){
+      setCart(cart.filter((x)=>x.product.id !== product.id))
+    }else{
+      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity - 1} : x))
+    }
+  }
 
   useEffect( ()=>{
     fetchUsers();
@@ -68,7 +72,7 @@ function App() {
   return (
     <div className="App">
       <h1></h1>
-      {isLogdIn===true && <HomePage cart={cart} addToCart={addToCart} />}
+      {isLogdIn===true && <HomePage cart={cart} addToCart={addToCart} onRemove={onRemove} />}
       {/* use loginPage and pass login and logout props */}
       {isLogdIn===false && <LoginPage login={login} logout={logout}/>}
 

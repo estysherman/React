@@ -38,11 +38,11 @@
 }
 .price{
     /* display: flexbox; */
-    display: inline-block;
+    display: inline;
     margin-inline-start: 2vw;
 }
 .line_p{
-    display:inline-block;
+    display:none;
     margin-inline-end: 1vw;
     margin-inline-start: 1vw;
 }
@@ -72,4 +72,37 @@
     background-color: #008CBA;
     color: white;
   }
-  
+
+.qty{
+    display:inline;
+    margin-inline-end: 3%;
+}
+
+.qtyButtons{
+    display: flex;
+}
+
+
+ .plusMinusButten{
+    background-color: white; 
+    border: none;
+    color: #008CBA;
+    padding: 2px 2%;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 20px;
+    margin:auto;
+    transition-duration: 0.8s;
+    cursor: pointer;
+ }
+
+.plusMinusButten2{
+    background-color: #008CBA; 
+    color: white; 
+    border: 1px solid #008CBA;
+}
+.plusMinusButten2:hover{
+    background-color: #ffffff;
+    color: black;
+}

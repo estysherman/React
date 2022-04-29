@@ -20,7 +20,7 @@ const HomePage = (props) =>{
                 <Route path='/flowers' element = {<Flowers addToCart={props.addToCart}/>}/>
                 <Route path='/views' element = {<Views addToCart={props.addToCart}/>}/>
                 <Route path='/cities' element = {<Cities addToCart={props.addToCart}/>}/>
-                <Route path='/cart' element = {<Cart cart={props.cart}/>}/>
+                <Route path='/cart' element = {<Cart cart={props.cart} onRemove={props.onRemove} addToCart={props.addToCart}/>}/>
             </Routes>
         </div>
     )
