@@ -1,4 +1,5 @@
 import './HomePage.css';
+
 import {Link, Routes, Route} from 'react-router-dom';
 import Menu from '../Menu/Menu';
 import Flowers from '../Flowers/Flowers';
@@ -12,6 +13,8 @@ const HomePage = (props) =>{
     return(
         <div className='main'>
             <h1>Stock Photos</h1>
+            <h4 className='user'>Hallo {localStorage.getItem("activUser")}</h4>
+            <button className='button'>Log out</button>
             <h2>The best stock photos</h2>
             <Menu/>
             {/* <image></image> */}

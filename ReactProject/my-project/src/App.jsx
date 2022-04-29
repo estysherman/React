@@ -27,6 +27,7 @@ function App() {
   if (u)
   {
     localStorage.setItem("isLogdIn", "True");
+    localStorage.setItem("activUser", username);
     setIsLogdIn(true);
     return true;
   }
