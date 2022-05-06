@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Cart.css';
 
 const Cart = (props) => {
+    const[orderCompleted, setOrderCompleted] = useState(false);
 
     const getSum = () =>{ //Total cost of all products in the cart
         let sum = 0.0;
@@ -33,8 +34,27 @@ const Cart = (props) => {
     const remove = (product) =>{
         props.onRemove(product, 1);
     }
+
+    const creatOrders = () =>{
+        const order = {
+            cartItems: props.cart, 
+            total: getSum(), 
+            quantity: getQuantity(),
+            email: props.getUser().email
+        };
+        props.addOrders(order);
+        setOrderCompleted(true)
+        emptyCart()
+    }
     
 console.log(props.cart);
+if (orderCompleted === true){
+    return(
+        <div>
+            Order completed successfully!
+        </div>
+    )
+}
     return (
         <div className='item'>
            {
@@ -53,8 +73,11 @@ console.log(props.cart);
             }
             <h3 className='emptyMessage'>{emptyCart()} </h3> 
            <h2 className='total'>Total ({getQuantity()} items): {getSum()}₪</h2>
+           <button onClick={creatOrders}>Place yuor order</button>
+           <div></div>
         </div>
     );
+    
 };
 
 export default Cart;

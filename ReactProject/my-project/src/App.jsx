@@ -10,7 +10,16 @@ function App() {
   const[cart, setCart] = useState([
     
   ])
-
+  
+  useEffect( ()=>{
+    fetchUsers();
+    const savedLogedIn = localStorage.getItem("isLogdIn")
+    if (savedLogedIn && savedLogedIn === "True"){
+      setIsLogdIn(true);
+    }
+  
+  }, []) //useEffect runing once on mount
+  
   const login = (username, password) => {
     console.log(username, password, users);
   /* for (let i = 0; i < users.length; i++){
@@ -20,23 +29,32 @@ function App() {
   return false;
  */
   const u = users.find((i) => {
-    if (i.userName == username && i.password == password)
+    if (i.userName === username && i.password === password)
       return true;
     else return false;
   }) 
   if (u)
   {
     localStorage.setItem("isLogdIn", "True");
-    localStorage.setItem("activUser", username);
+    localStorage.setItem("activUser", JSON.stringify(u));
     setIsLogdIn(true);
     return true;
   }
   else return false;
 }
 
+const getUser = () =>{
+  const user = localStorage.getItem("activUser")
+  if (user){
+    return JSON.parse(user)
+  }
+}
+
 //loggingIn
-  const logout = () => {
-    localStorage.removeItem("isLogdIn");
+  const logout = () => { 
+    localStorage.setItem("isLogdIn", "False");
+    setIsLogdIn(false);
+
   }
 
   const fetchUsers = async() => {
@@ -65,15 +83,32 @@ function App() {
     }
   }
 
-  useEffect( ()=>{
-    fetchUsers();
+  const addOrders = (order) =>{
+    order.date = new Date().toLocaleString();
+    let orders = [];
+    const localOrders = localStorage.getItem("orders");
+    if (localOrders){
+      orders = JSON.parse(localOrders)
+    }
+    orders.push(order);
+    localStorage.setItem("orders", JSON.stringify(orders));
+  }
 
-  }, []) //useEffect runing once on mount
+  const getOrders = (user) =>{
+    let orders = [];
+    const localOrders = localStorage.getItem("orders");
+    if (localOrders){
+      orders = JSON.parse(localOrders)
+    }
+    
+    if(!user)
+      user = getUser();
+    return orders.filter(o => o.email === user.email);
+  }
   
   return (
     <div className="App">
-      <h1></h1>
-      {isLogdIn===true && <HomePage cart={cart} addToCart={addToCart} onRemove={onRemove} />}
+      {isLogdIn===true && <HomePage cart={cart} addToCart={addToCart} onRemove={onRemove} logout={logout} getUser={getUser} addOrders={addOrders} getOrders={getOrders} users={users}/>}
       {/* use loginPage and pass login and logout props */}
       {isLogdIn===false && <LoginPage login={login} logout={logout}/>}
 
