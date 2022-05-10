@@ -1,11 +1,13 @@
 import './App.css';
 import LoginPage from './Components/LoginPage/LoginPage';
 import HomePage from './Components/HomePage/HomePage';
+import {Context} from './shared/Context'
 
 import {useState, useEffect} from 'react'
 
 function App() {
   const[users, setUsers] = useState([])
+  const [product, setProduct] = useState({views:[], cities:[], flowers:[]})
   const[isLogdIn, setIsLogdIn] = useState(false)
   const[cart, setCart] = useState([
     
@@ -17,6 +19,7 @@ function App() {
     if (savedLogedIn && savedLogedIn === "True"){
       setIsLogdIn(true);
     }
+    fetchProduct();
   
   }, []) //useEffect runing once on mount
   
@@ -65,10 +68,18 @@ const getUser = () =>{
     localStorage.setItem("users", JSON.stringify(tempUsers))
   }
 
+  const fetchProduct = async() => {
+    const data = await fetch('products.json');
+    const tempProduct = await data.json();
+    console.log(tempProduct);
+    setProduct(tempProduct);
+    localStorage.setItem("products", JSON.stringify(tempProduct))
+  }
+  
   const addToCart = (product, quantity) => {
     const exist = cart.find( x=> x.product.id === product.id );
     if(exist){
-      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity + 1} : x));
+      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity + quantity} : x));
     }else{
       setCart([...cart,{product:product,quantity:quantity}]);
     }
@@ -108,10 +119,12 @@ const getUser = () =>{
   
   return (
     <div className="App">
-      {isLogdIn===true && <HomePage cart={cart} addToCart={addToCart} onRemove={onRemove} logout={logout} getUser={getUser} addOrders={addOrders} getOrders={getOrders} users={users}/>}
-      {/* use loginPage and pass login and logout props */}
-      {isLogdIn===false && <LoginPage login={login} logout={logout}/>}
-
+      <Context.Provider
+        value={{getOrders:getOrders, cart: cart, addToCart: addToCart, onRemove: onRemove, logout: logout, getUser: getUser, addOrders: addOrders, getOrders: getOrders, users: users, product: product}}>
+        {isLogdIn===true && <HomePage/>}
+        {/* use loginPage and pass login and logout props */}
+        {isLogdIn===false && <LoginPage login={login} logout={logout}/>}
+      </Context.Provider>
     </div>
   );
 }

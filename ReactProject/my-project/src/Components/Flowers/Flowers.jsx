@@ -18,7 +18,7 @@ const Flowers = (props) =>{
         <div className="products">
             {flowers.map((i) => {
                 return(
-                    <Product key={i.id} addToCart={props.addToCart} id={i.id} price={i.price} name={i.name} img={i.img}/>
+                    <Product key={i.id} id={i.id} price={i.price} name={i.name} img={i.img}/>
                 )
             })}
         </div>

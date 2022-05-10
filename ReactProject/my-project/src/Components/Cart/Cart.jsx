@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import './Cart.css';
+import { Context } from '../../shared/Context';
 
 const Cart = (props) => {
     const[orderCompleted, setOrderCompleted] = useState(false);
+    const ctx = useContext(Context);
 
     const getSum = () =>{ //Total cost of all products in the cart
         let sum = 0.0;
-        for (let i of props.cart){
+        for (let i of ctx.cart){
             sum+= i.product.price * i.quantity
         }
         return sum.toFixed(2);
@@ -14,7 +17,7 @@ const Cart = (props) => {
 
     const getQuantity = () =>{ //Count the products added to the cart
         let quant = 0;
-        for (let i of props.cart){
+        for (let i of ctx.cart){
             quant+= i.quantity
         }
         return quant;
@@ -22,32 +25,32 @@ const Cart = (props) => {
 
     const emptyCart = () =>{ //Displays a message when the cart is empty
         let emptyMessage = "The Cart is empty";
-        if (props.cart == 0){
+        if (ctx.cart == 0){
             return emptyMessage;
         }
     }
 
     const add = (product) =>{
-        props.addToCart(product, 1);
+        ctx.addToCart(product, 1);
     }
 
     const remove = (product) =>{
-        props.onRemove(product, 1);
+        ctx.onRemove(product, 1);
     }
 
     const creatOrders = () =>{
         const order = {
-            cartItems: props.cart, 
+            cartItems: ctx.cart, 
             total: getSum(), 
             quantity: getQuantity(),
-            email: props.getUser().email
+            email: ctx.getUser().email
         };
-        props.addOrders(order);
+        ctx.addOrders(order);
         setOrderCompleted(true)
         emptyCart()
     }
     
-console.log(props.cart);
+console.log(ctx.cart);
 if (orderCompleted === true){
     return(
         <div>
@@ -58,7 +61,7 @@ if (orderCompleted === true){
     return (
         <div className='item'>
            {
-                props.cart.map( item => {
+                ctx.cart.map( item => {
                     return <div  key={item.product.id}>
                         <h3 className='title'>{item.product.name}</h3>
                         <img className='img_c' src={item.product.img}/>

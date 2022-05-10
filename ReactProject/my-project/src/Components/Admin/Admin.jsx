@@ -1,14 +1,16 @@
 import React from 'react';
+import { useContext } from 'react';
 import './Admin.css';
 import { Link } from 'react-router-dom';
 import Orders from '../Orders/Orders';
+import { Context } from '../../shared/Context';
 
 const Admin = (props) => {
-
+    const ctx = useContext(Context);
 
     return (
         <div>
-            {props.users.map(user =>{
+            {ctx.users.map(user =>{
                 return(
                     <div key={user.email}>
                         <h3>name {user.userName}</h3>   

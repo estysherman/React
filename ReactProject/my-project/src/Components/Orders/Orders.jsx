@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Orders.css';
+import {Context} from '../../shared/Context';
 import { useParams } from 'react-router-dom';
 
 const Orders = (props) => {
     const params = useParams();
     console.log(params.email)
+    const context = useContext(Context);
     return(
         <div className='item'>
         {
-             props.getOrders({email: params.email}).map( order => {
+             context.getOrders({email: params.email}).map( order => {
                  return <div  key={order.date}>
                      {
                          order.cartItems.map( item => {

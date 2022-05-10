@@ -1,9 +1,12 @@
 import './Product.css';
 import React, {useState} from 'react';
+import { useContext } from 'react';
 import { generatePath } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../shared/Context';
 
 const Product = (props) => {
+    const ctx = useContext(Context);
 
     const[Qty, setQty] = useState(1)
 
@@ -17,7 +20,7 @@ const Product = (props) => {
     let navigate = useNavigate(); //Switch from addToCart button to cart
 
     const clickHandler = () => {
-        props.addToCart({id: props.id, name: props.name, price: props.price, img: props.img}, Qty);
+        ctx.addToCart({id: props.id, name: props.name, price: props.price, img: props.img}, Qty);
         navigate("/cart");//Switch from addToCart button to cart
     }
 

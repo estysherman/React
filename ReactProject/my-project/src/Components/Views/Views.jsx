@@ -1,4 +1,6 @@
 import Product from '../Product/Product';
+import { useContext } from 'react';
+import { Context } from '../../shared/Context';
 import './Views.css';
 
     const views = [
@@ -11,14 +13,15 @@ import './Views.css';
         {id: 2007, price: 10.00, name: "Playa Chivilingo", img: "https://lh5.googleusercontent.com/p/AF1QipN8DDBZjDgaWKAEfmSJ4JqnEM4oKprp-b8KvxLe=w500-h500-k-no"},
         {id: 2008, price: 10.00, name: "Manzano Amargo", img: "https://live.staticflickr.com/2914/32574143214_74aaf97f4e_b.jpg"},
     ];
-    
+localStorage.setItem("views", JSON.stringify(views))
     const Views = (props) => {
+        const ctx = useContext(Context);
 
     return (
         <div className="products">
-            {views.map((i) => {
+            {ctx.product.views.map((i) => {
                 return(
-                    <Product key={i.id} addToCart={props.addToCart} id={i.id} price={i.price} name={i.name} img={i.img}/>
+                    <Product key={i.id} id={i.id} price={i.price} name={i.name} img={i.img}/>
                 )
             })}
         </div>
