@@ -10,11 +10,11 @@ import Products from '../Products/Products';
 
 const HomePage = (props) =>{
     const ctx = useContext(Context);
-
+    //console.log(ctx.productArr);
     return(
         <div className='main'>
             <h1>Stock Photos</h1>
-            {ctx.getUser().userType == "admin" && <Link to={'/admin'}>Admin</Link> }
+            {ctx.getUser().userType === "admin" && <Link to={'/admin'}>Admin</Link> }
             <button onClick={() => ctx.logout()} className='button'>Log out</button>
             <Link to={'/orders/'+ ctx.getUser().email} className='user'>Hallo {ctx.getUser().userName} </Link>
             <h2>The best stock photos</h2>
@@ -22,9 +22,9 @@ const HomePage = (props) =>{
             {/* <image></image> */}
             <Routes>
                 <Route path='/homepage' element = {<span>HomePage</span>}/>
-                <Route path='/flowers' element = {<Products products={ctx.product.flowers}/>}/>
-                <Route path='/views' element = {<Products products={ctx.product.views}/>}/>
-                <Route path='/cities' element = {<Products products={ctx.product.cities}/>}/>
+                <Route path='/flowers' element = {<Products products={ctx.productArr.filter((p)=> p.category === "flowers")}/>}/>
+                <Route path='/views' element = {<Products products={ctx.productArr.filter((p)=> p.category === "views")}/>}/>
+                <Route path='/cities' element = {<Products products={ctx.productArr.filter((p)=> p.category === "cities")}/>}/> 
                 <Route path='/cart' element = {<Cart/>}/>
                 <Route path='/orders/:email' element = {<Orders/>}/>
                 <Route path='/admin' element = {<Admin />}/>

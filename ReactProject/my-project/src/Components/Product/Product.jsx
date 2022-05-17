@@ -1,7 +1,6 @@
 import './Product.css';
 import React, {useState} from 'react';
 import { useContext } from 'react';
-import { generatePath } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../shared/Context';
 

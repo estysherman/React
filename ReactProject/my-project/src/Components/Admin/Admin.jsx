@@ -2,11 +2,11 @@ import React from 'react';
 import { useContext } from 'react';
 import './Admin.css';
 import { Link } from 'react-router-dom';
-import Orders from '../Orders/Orders';
 import { Context } from '../../shared/Context';
 
 const Admin = (props) => {
     const ctx = useContext(Context);
+
 
     return (
         <div>
@@ -15,7 +15,7 @@ const Admin = (props) => {
                     <div key={user.email}>
                         <h3>name {user.userName}</h3>   
                         <h3>email {user.email}</h3>   
-                        <img src={user.pic}></img>   
+                        <img src={user.pic} alt={user.userName}></img>   
                         <h3>Type {user.userType}</h3>  
                         <Link to={`/orders/${user.email}`}>Show Orders</Link>
                         <hr/> 

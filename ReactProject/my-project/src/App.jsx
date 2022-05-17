@@ -7,7 +7,7 @@ import {useState, useEffect} from 'react'
 
 function App() {
   const[users, setUsers] = useState([])
-  const [product, setProduct] = useState({views:[], cities:[], flowers:[]})
+  const [productArr, setProductArr] = useState([])
   const[isLogdIn, setIsLogdIn] = useState(false)
   const[cart, setCart] = useState([
     
@@ -20,7 +20,7 @@ function App() {
       setIsLogdIn(true);
     }
     fetchProduct();
-  
+      
   }, []) //useEffect runing once on mount
   
   const login = (username, password) => {
@@ -69,13 +69,29 @@ const getUser = () =>{
   }
 
   const fetchProduct = async() => {
-    const data = await fetch('products.json');
-    const tempProduct = await data.json();
-    console.log(tempProduct);
-    setProduct(tempProduct);
-    localStorage.setItem("products", JSON.stringify(tempProduct))
+    let tempProducts;
+    const checkProduct = localStorage.getItem("products");
+    if (!checkProduct){
+      const data = await fetch('products.json');
+      tempProducts = await data.json();
+      localStorage.setItem("products", JSON.stringify(tempProducts));
+    }else{
+      tempProducts = JSON.parse(checkProduct);
+    }
+    console.log(tempProducts);
+    setProductArr(tempProducts.products);
   }
   
+  const updateProduct = (newProduct) =>{
+    if (productArr.products.findIndex((i)=> i.id === newProduct.id) === -1)
+      return false;
+    const tempProduct = {...productArr};
+    tempProduct.products.push(newProduct);
+    setProductArr(tempProduct);
+    localStorage.setItem("products", JSON.stringify(tempProduct));
+    return true;
+  }
+
   const addToCart = (product, quantity) => {
     const exist = cart.find( x=> x.product.id === product.id );
     if(exist){
@@ -120,7 +136,7 @@ const getUser = () =>{
   return (
     <div className="App">
       <Context.Provider
-        value={{getOrders:getOrders, cart: cart, addToCart: addToCart, onRemove: onRemove, logout: logout, getUser: getUser, addOrders: addOrders, getOrders: getOrders, users: users, product: product}}>
+        value={{getOrders:getOrders, cart: cart, addToCart: addToCart, onRemove: onRemove, logout: logout, getUser: getUser, addOrders: addOrders, users: users,updateProduct: updateProduct, productArr: productArr}}>
         {isLogdIn===true && <HomePage/>}
         {/* use loginPage and pass login and logout props */}
         {isLogdIn===false && <LoginPage login={login} logout={logout}/>}
