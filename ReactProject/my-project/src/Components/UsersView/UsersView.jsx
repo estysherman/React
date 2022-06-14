@@ -1,10 +1,10 @@
 import React from 'react';
 import { useContext } from 'react';
-import './Admin.css';
+import './UsersView.css';
 import { Link } from 'react-router-dom';
 import { Context } from '../../shared/Context';
 
-const Admin = (props) => {
+const UsersView = (props) => {
     const ctx = useContext(Context);
 
 
@@ -28,4 +28,4 @@ const Admin = (props) => {
     );
 };
 
-export default Admin;
+export default UsersView;

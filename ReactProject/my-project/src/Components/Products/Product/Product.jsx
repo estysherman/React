@@ -1,13 +1,13 @@
 import './Product.css';
 import React, {useState} from 'react';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Context } from '../../shared/Context';
+import { Link, useNavigate } from 'react-router-dom';
+import { Context } from '../../../shared/Context';
 
 const Product = (props) => {
-    const ctx = useContext(Context);
-
     const[Qty, setQty] = useState(1)
+    const ctx = useContext(Context);
+    const navigate = useNavigate(); //Switch from addToCart button to cart
 
     const removeButten = () =>{
         if (Qty >= 2)
@@ -16,8 +16,6 @@ const Product = (props) => {
         }
     }
 
-    let navigate = useNavigate(); //Switch from addToCart button to cart
-
     const clickHandler = () => {
         ctx.addToCart({id: props.id, name: props.name, price: props.price, img: props.img}, Qty);
         navigate("/cart");//Switch from addToCart button to cart
@@ -25,7 +23,7 @@ const Product = (props) => {
 
     return (
         <div className='product'>
-            <h3 className='name'> {props.name}</h3>
+            <h3 className='name' ><Link to={'/viewproduct/'+props.id}>{props.name}</Link></h3>
             <img className='img' src={props.img} alt={props.name}/>
             <h5 className='id'>SKU: {props.id}</h5>
             <h5 className='price'>Price: {props.price} ₪</h5>
@@ -35,6 +33,7 @@ const Product = (props) => {
                 <button onClick={() => removeButten()} className="plusMinusButten plusMinusButten2">-</button>
             </div>
             <button onClick={clickHandler} className='button button2'>Add to cart</button>
+            {ctx.getUser().userType === "admin" && <Link to={'/prd/'+props.id}>Edit Product</Link>}
         </div>
     );
 };
