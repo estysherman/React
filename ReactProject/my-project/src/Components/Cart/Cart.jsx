@@ -3,11 +3,13 @@ import { useContext } from 'react';
 import './Cart.css';
 import { Context } from '../../shared/Context';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const Cart = (props) => {
     const[orderCompleted, setOrderCompleted] = useState(false);
     const ctx = useContext(Context);
+    const navigate = useNavigate();
 
     const getSum = () =>{ //Total cost of all products in the cart
         let sum = 0.0;
@@ -60,8 +62,15 @@ const Cart = (props) => {
             emptyCartMessage()
         }
     }
+
+    const handleCreatOrder = () =>{
+        if (ctx.isLogdIn === true){
+            creatOrders()
+        } else{
+            navigate('/login');
+        }
+    }
     
-console.log(ctx.cart);
 if (orderCompleted === true){
     return(
         <div>
@@ -87,7 +96,7 @@ if (orderCompleted === true){
             }
             <h3 className='emptyMessage'>{emptyCartMessage()} </h3> 
            <h2 className='total'>Total ({getQuantity()} items): {getSum()}₪</h2>
-           <button onClick={creatOrders}>Place yuor order</button>
+           <button onClick={handleCreatOrder}>Place yuor order</button>
            <div></div>
            <ToastContainer />
         </div>

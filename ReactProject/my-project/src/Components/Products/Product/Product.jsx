@@ -22,10 +22,10 @@ const Product = (props) => {
     }
 
     return (
-        <div className='product'>
+        <div className='card text-center'>
             <h3 className='name' ><Link to={'/viewproduct/'+props.id}>{props.name}</Link></h3>
-            <img className='img' src={props.img} alt={props.name}/>
-            <h5 className='id'>SKU: {props.id}</h5>
+            <img className='card-img-top img-fluid' src={props.img} alt={props.name}/>
+            <h5 className='card-text'>SKU: {props.id}</h5>
             <h5 className='price'>Price: {props.price} ₪</h5>
             <div className='qtyButtons'>
                 <button onClick={() => setQty(Qty + 1)} className="plusMinusButten plusMinusButten2">+</button>
@@ -33,7 +33,7 @@ const Product = (props) => {
                 <button onClick={() => removeButten()} className="plusMinusButten plusMinusButten2">-</button>
             </div>
             <button onClick={clickHandler} className='button button2'>Add to cart</button>
-            {ctx.getUser().userType === "admin" && <Link to={'/prd/'+props.id}>Edit Product</Link>}
+            {ctx.isLogdIn === true && ctx.getUser().userType === "admin" && <Link to={'/prd/'+props.id}>Edit Product</Link>}
         </div>
     );
 };

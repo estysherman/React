@@ -3,8 +3,6 @@ import './SearchBar.css';
 import { Context } from '../../../shared/Context';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
 const SearchBar = () => {
     const ctx = useContext(Context);
     const[min, setMin] = useState(0)

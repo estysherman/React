@@ -40,17 +40,35 @@ const EditOrder = () => {
         const tempOrder = {...modifyOrder};
         tempOrder.orderItems = tempOrder.orderItems.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity + 1} : x);
         setModifyOrder(tempOrder);
-        toast("The Item was added! ")
+        toast("The quantity was update")
     }
 
     const removeItem = (product) =>{
         const exist = modifyOrder.orderItems.find( x=> x.product.id === product.id );
         const tempOrder = {...modifyOrder};
-        tempOrder.orderItems = tempOrder.orderItems.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity - 1} : x);
-        setModifyOrder(tempOrder);
-        toast("The Item was removed! ")
+        if (exist.quantity > 1)
+        {
+            tempOrder.orderItems = tempOrder.orderItems.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity - 1} : x);
+            toast("The quantity was update")
+            setModifyOrder(tempOrder);
+        }
+        else if (exist.quantity === 1)
+        {
+            tempOrder.orderItems = tempOrder.orderItems.map(x=> x.product.id === product.id ? onRemoveItem(x.product) : x);
+        }
+        else if (exist.quantity === 0) 
+        {
+            onRemoveItem(product)
+        }
     }
-    
+
+    const onRemoveItem = (product) =>{
+        const tempOrderToRemove = {...modifyOrder};
+        tempOrderToRemove.orderItems = tempOrderToRemove.orderItems.filter(x=> x.product.id !== product.id);
+        setModifyOrder(tempOrderToRemove);
+        toast("The Item was removed")
+
+    } 
 
     const uptadeOrders = () =>{
         const order = {

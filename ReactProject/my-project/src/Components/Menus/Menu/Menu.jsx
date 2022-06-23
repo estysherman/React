@@ -11,7 +11,7 @@ const Menu = () => {
     return (
         <div className='menu'>
             <ul>
-                <li><Link className="active" to={"/homepage"}>HomePage</Link></li>
+                <li><Link className="active" to={"/"}>HomePage</Link></li>
                 {ctx.ctg.map((cat) =>
                     <li key={cat}><Link to={`/productsview/${cat}`}>{cat}</Link></li>
                 )}

@@ -43,7 +43,6 @@
 .price{
     /* display: flexbox; */
     display: inline;
-    margin-inline-start: 2vw;
 }
 .line_p{
     display:none;

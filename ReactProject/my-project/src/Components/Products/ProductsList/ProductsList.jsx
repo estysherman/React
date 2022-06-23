@@ -9,13 +9,15 @@ const ProductsList = (props) => {
     const params = useParams();
 
     const filterCategory = () =>{
-        if (!params.cat && window.location.pathname === '/homepage'){
+        if( ctx.productArr.length == 0) return [];
+
+        if (!params.cat && window.location.pathname === '/'){
             const randomProducts = [];
             let count = 0;
             while(count < 12){
-                const i = Math.floor(Math.random() * ctx.productArr.length);
-                const prodId = ctx.productArr[i].id;
-                if(randomProducts.findIndex(p => p.id === prodId) === -1){
+                const i = Math.floor(Math.random() * ctx.productArr.length); //מחזיר ערך בין 0 לגודל המערך
+                const prodId = ctx.productArr[i].id; //Return the ID of the item on the while
+                if(randomProducts.findIndex(p => p.id === prodId) === -1){ //check if the random gett duplicate prod
                     randomProducts.push(ctx.productArr[i]);
                     count++;
                 }
@@ -47,7 +49,7 @@ const ProductsList = (props) => {
     }
     
     return (
-        <div className="products">
+        <div className="container card-columns mt-5 products">
             {filterPrice().map((i) => {
                 return(
                     <Product key={i.id} id={i.id} price={i.price} name={i.name} img={i.img}/>

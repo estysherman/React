@@ -32,7 +32,7 @@ const ViewProduct = (props) => {
     }
 
     return (
-        <div className='product'>
+        <div className='card'>
             <h3 className='name'> {prd.name}</h3>
             <img className='img' src={prd.img} alt={prd.name}/>
             <h5 className='id'>SKU: {prd.id}</h5>
@@ -43,9 +43,9 @@ const ViewProduct = (props) => {
                 <button onClick={() => removeButten()} className="plusMinusButten plusMinusButten2">-</button>
             </div>
             <button onClick={clickHandler} className='button button2'>Add to cart</button>
-            {ctx.getUser().userType === "admin" && <Link to={'/prd/'+prd.id}>Edit Product</Link>}
+            {ctx.isLogdIn===true && ctx.getUser().userType === "admin" && <Link to={'/prd/'+prd.id}>Edit Product</Link>}
         </div>
     );
 };
-
+    
 export default ViewProduct;

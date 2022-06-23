@@ -5,7 +5,7 @@ import AdminPage from './Pages/AdminPage/AdminPage';
 import {Context} from './shared/Context'
 import {useState, useEffect} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 function App() {
   const[isLogdIn, setIsLogdIn] = useState(false)
@@ -49,7 +49,7 @@ function App() {
     localStorage.setItem("isLogdIn", "True");
     localStorage.setItem("activUser", JSON.stringify(u));
     toast(`Welcome back ${username} 😀`)
-    navigate('/homepage')
+    navigate('/')
     setIsLogdIn(true);
     return true;
   }
@@ -69,7 +69,7 @@ const getUser = () =>{
     localStorage.removeItem("activUser");
     setIsLogdIn(false);
     navigate('/')
-    toast(`Waiting toLowerCase(); see you again ❤️`)
+    toast(`Waiting to see you again ❤️`)
   }
 
   const fetchUsers = async() => {
@@ -132,7 +132,7 @@ const getUser = () =>{
       setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity + quantity} : x));
     }else{
       setCart([...cart,{product:product,quantity:quantity}]);
-      toast(`✅ The item was addad toLowerCase(); the cart!`)
+      toast(`✅ The item was addad to the cart!`)
     }
   }
 
@@ -143,15 +143,15 @@ const getUser = () =>{
     }else{
       setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity - 1} : x))
     }
-    toast(`✅ The item was remove toLowerCase(); the cart!`)
+    toast(`✅ The item was remove from the cart!`)
   }
 
   const addOrUpdateOrders = (order) =>{
-    order.date = new Date().toLocaleString();
+    order.date = new Date().toLocaleString(); //Updates and adds the order date
     let orders = [];
-    const localOrders = localStorage.getItem("orders");
+    const localOrders = localStorage.getItem("orders"); //Imports orders from local storage
     if (localOrders){
-      orders = JSON.parse(localOrders)
+      orders = JSON.parse(localOrders) //If any, conversion
     }
     const index = orders.findIndex(o => o.orderNum === order.orderNum);
     if (index === -1){
@@ -160,6 +160,9 @@ const getUser = () =>{
     else{
       orders[index] = order;
     }
+    // if (index.quantity === 0){
+    //   orders = orders.filter(o => o.orderNum !== order.orderNum)
+    // }
     localStorage.setItem("orders", JSON.stringify(orders));
     setCart([])
   }
@@ -196,15 +199,13 @@ const getUser = () =>{
   return (
     <div className="App">
       <Context.Provider
-        value={{getOrders, cart, addToCart, onRemove, logout, getUser, addOrUpdateOrders, users, updateProduct, addProduct, productArr, ctg, updateCategory, addCategory, search, setSearch, minMaxPrice, setMinMaxPrice}}>
-        {isLogdIn===true && getUser().userType!=="admin" && <HomePage/>}
-        {isLogdIn===true && getUser().userType==="admin" && <AdminPage/>}
-        {/* use loginPage and pass login and logout props */}
-        {isLogdIn===false && <LoginPage login={login} logout={logout}/>}
+        value={{getOrders, cart, addToCart, onRemove, logout, login, getUser, addOrUpdateOrders, users, updateProduct, addProduct, productArr, ctg, updateCategory, addCategory, search, setSearch, minMaxPrice, setMinMaxPrice,isLogdIn}}>
+        {isLogdIn===true && getUser().userType==="admin" ?<AdminPage/> : <HomePage/>}
+
       </Context.Provider>
       <ToastContainer />
       <div className='footer_css'>
-      <footer>כל הזכויות שמורות לי - ליצירת קשר 073-6585552</footer>
+      <footer>Copyright 2022 ©️ Shermans Markat, All rights reserved</footer>
       </div>
     </div>
   );
