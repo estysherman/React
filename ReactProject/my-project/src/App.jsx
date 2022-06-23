@@ -196,10 +196,23 @@ const getUser = () =>{
     localStorage.setItem("ctg", JSON.stringify(newCtg));
   }
 
+  const options  = [
+    { label: 1, value: 1 },
+    { label: 2, value: 2 },
+    { label: 3, value: 3 },
+    { label: 4, value: 4 },
+    { label: 5, value: 5 },
+    { label: 6, value: 6 },
+    { label: 7, value: 7 },
+    { label: 8, value: 8 },
+    { label: 9, value: 9 },
+    { label: 10, value: 10 }
+]
+
   return (
     <div className="App">
       <Context.Provider
-        value={{getOrders, cart, addToCart, onRemove, logout, login, getUser, addOrUpdateOrders, users, updateProduct, addProduct, productArr, ctg, updateCategory, addCategory, search, setSearch, minMaxPrice, setMinMaxPrice,isLogdIn}}>
+        value={{getOrders, cart, addToCart, onRemove, logout, login, getUser, addOrUpdateOrders, users, updateProduct, addProduct, productArr, ctg, updateCategory, addCategory, search, setSearch, minMaxPrice, setMinMaxPrice,isLogdIn,options}}>
         {isLogdIn===true && getUser().userType==="admin" ?<AdminPage/> : <HomePage/>}
 
       </Context.Provider>

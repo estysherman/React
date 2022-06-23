@@ -19,11 +19,15 @@ const ViewProduct = (props) => {
         };
     },[])
 
-    const removeButten = () =>{
-        if (Qty >= 2)
-        {
-            setQty(Qty-1)
-        }
+    // const removeButten = () =>{
+    //     if (Qty >= 2)
+    //     {
+    //         setQty(Qty-1)
+    //     }
+    // }
+
+    const handleQtySelect = (e) =>{
+        setQty(e.target.value);
     }
 
     const clickHandler = () => {
@@ -35,17 +39,23 @@ const ViewProduct = (props) => {
         <div className='card'>
             <h3 className='name'> {prd.name}</h3>
             <img className='img' src={prd.img} alt={prd.name}/>
-            <h5 className='id'>SKU: {prd.id}</h5>
-            <h5 className='price'>Price: {prd.price} ₪</h5>
-            <div className='qtyButtons'>
+            <h3 className='price'>Price: {prd.price} ₪</h3>
+            <p className='id'>SKU: {prd.id}</p>
+            {/* <div className='qtyButtons'>
+            <label >Qty: </label>
+                <select className='form-control' value={Qty} onChange={handleQtySelect}>
+                    {ctx.options.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                    ))}
+                </select>
                 <button onClick={() => setQty(Qty + 1)} className="plusMinusButten plusMinusButten2">+</button>
                 <h5 className='qty' >Qty: {Qty} </h5>
                 <button onClick={() => removeButten()} className="plusMinusButten plusMinusButten2">-</button>
-            </div>
-            <button onClick={clickHandler} className='button button2'>Add to cart</button>
+            </div> */}
+            <button onClick={clickHandler} className='btn btn-primary'>Add to cart</button>
             {ctx.isLogdIn===true && ctx.getUser().userType === "admin" && <Link to={'/prd/'+prd.id}>Edit Product</Link>}
         </div>
     );
 };
-    
+
 export default ViewProduct;
