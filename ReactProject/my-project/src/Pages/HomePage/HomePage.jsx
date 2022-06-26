@@ -9,6 +9,7 @@ import ProductsList from '../../Components/Products/ProductsList/ProductsList';
 import ViewProduct from '../../Components/Products/ViewProduct/ViewProduct';
 import LoginPage from '../../Components/LoginPage/LoginPage';
 import AdminPage from '../AdminPage/AdminPage';
+import About from '../../Components/About/About';
 
 const HomePage = (props) =>{
     const ctx = useContext(Context);
@@ -24,14 +25,15 @@ const HomePage = (props) =>{
     }
     return(
         <div className='main'>
+            <img src="../../../public/images/Logo.jpg" alt="Logo" />
             <h1>Shermans Market</h1>
             {<button onClick={handleUserConnection} className='button'>{ctx.isLogdIn===true ? "Log out" : "Log in"}</button>}
             {ctx.isLogdIn===true && <Link to={'/orders/'+ ctx.getUser().email} className='user'>Hallo {ctx.getUser().userName} </Link>}
-            <h2>The best stock photos</h2>
             <Menu/>
             {/* <image></image> */}
             <Routes>
                 <Route path='/' element = {<ProductsList />}/>
+                <Route path='/about' element = {<About/>}/>
                 <Route path='productsview/:cat' element = {<ProductsList />}/>
                 <Route path='/viewproduct/:id' element = {<ViewProduct />}/>
                 <Route path='/cart' element = {<Cart/>}/>

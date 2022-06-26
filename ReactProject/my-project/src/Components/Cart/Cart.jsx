@@ -6,8 +6,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Cart = (props) => {
     const[orderCompleted, setOrderCompleted] = useState(false);
+    const[Qty, setQty] = useState(1)
+    console.log("State Qty " + Qty);
+    const[selectedOption, setSelOp] = useState(1)
     const ctx = useContext(Context);
     const navigate = useNavigate();
 
@@ -33,15 +37,10 @@ const Cart = (props) => {
             return emptyMessage;
         }
     }
-
-    const add = (product) =>{
-        ctx.addToCart(product, 1);
-        toast(`✔️ The item was addad to the cart!`)
-    }
-
-    const remove = (product) =>{
-        ctx.onRemove(product, 1);
-        toast(`✔️ The item was remove from the cart!`)
+      
+    const updateQty = (product) =>{
+        ctx.updateQtyCart(product, Qty);
+        console.log("updateQty" + product.name + " & " + Qty);
     }
 
     const creatOrders = () =>{
@@ -89,8 +88,14 @@ if (orderCompleted === true){
                             <h5 className='line'>Qty: {item.quantity}</h5>
                             <h5 className='line'>Price: {item.product.price} ₪</h5>
                         </div>
-                        <button onClick={() => remove(item.product)}>-</button>
-                        <button onClick={() => add(item.product)}>+</button>
+                        <div className='qtyButtons'>
+                            <label >Qty: </label>
+                                <select className='form-control' value={Qty} onChange={(e) => {setQty(e.target.value);ctx.updateQtyCart(item.product, e.target.value)}}>
+                                    {ctx.options.map((option) => (
+                                        <option value={option.value}>{option.label}</option>
+                                    ))}
+                                </select>
+                        </div>
                     </div>
                 })
             }

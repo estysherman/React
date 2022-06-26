@@ -32,12 +32,6 @@ function App() {
   
   const login = (username, password) => {
     console.log(username, password, users);
-  /* for (let i = 0; i < users.length; i++){
-     if (users[i].username == username && users[i].password == password)
-     return true;
-  } 
-  return false;
- */
   const u = users.find((i) => {
     if (i.userName === username && i.password === password){
       return true;
@@ -129,21 +123,29 @@ const getUser = () =>{
   const addToCart = (product, quantity) => {
     const exist = cart.find( x=> x.product.id === product.id );
     if(exist){
-      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity + quantity} : x));
+      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity: quantity} : x));
+      console.log("addToCart +");
     }else{
       setCart([...cart,{product:product,quantity:quantity}]);
+      console.log("addToCart N");
       toast(`✅ The item was addad to the cart!`)
     }
   }
 
-  const onRemove = (product, quantity) =>{
+  const updateQtyCart = (product, quantity) =>{
     const exist = cart.find((x)=>x.product.id === product.id)
-    if(exist.quantity === 1){
-      setCart(cart.filter((x)=>x.product.id !== product.id))
+    if(exist){
+      if (quantity >0){
+        setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity: quantity} : x))
+        console.log("update Qty Cart " + quantity)
+      } else {
+        setCart(cart.filter((x)=>x.product.id !== product.id))
+        console.log("remove Qty Cart ")
+      }
+      toast(`✅ The item was updated in the cart!`)
     }else{
-      setCart(cart.map(x=> x.product.id === product.id ? {...exist,quantity:exist.quantity - 1} : x))
-    }
-    toast(`✅ The item was remove from the cart!`)
+      addToCart(product, quantity)
+    };
   }
 
   const addOrUpdateOrders = (order) =>{
@@ -160,9 +162,6 @@ const getUser = () =>{
     else{
       orders[index] = order;
     }
-    // if (index.quantity === 0){
-    //   orders = orders.filter(o => o.orderNum !== order.orderNum)
-    // }
     localStorage.setItem("orders", JSON.stringify(orders));
     setCart([])
   }
@@ -197,6 +196,7 @@ const getUser = () =>{
   }
 
   const options  = [
+    { label: 0, value: 0 },
     { label: 1, value: 1 },
     { label: 2, value: 2 },
     { label: 3, value: 3 },
@@ -206,13 +206,12 @@ const getUser = () =>{
     { label: 7, value: 7 },
     { label: 8, value: 8 },
     { label: 9, value: 9 },
-    { label: 10, value: 10 }
 ]
 
   return (
     <div className="App">
       <Context.Provider
-        value={{getOrders, cart, addToCart, onRemove, logout, login, getUser, addOrUpdateOrders, users, updateProduct, addProduct, productArr, ctg, updateCategory, addCategory, search, setSearch, minMaxPrice, setMinMaxPrice,isLogdIn,options}}>
+        value={{getOrders, cart, addToCart, updateQtyCart, logout, login, getUser, addOrUpdateOrders, users, updateProduct, addProduct, productArr, ctg, updateCategory, addCategory, search, setSearch, minMaxPrice, setMinMaxPrice,isLogdIn,options}}>
         {isLogdIn===true && getUser().userType==="admin" ?<AdminPage/> : <HomePage/>}
 
       </Context.Provider>
