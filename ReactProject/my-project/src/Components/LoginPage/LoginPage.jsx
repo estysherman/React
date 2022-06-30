@@ -1,6 +1,7 @@
 import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './LoginPage.css';
 
 // import { Link } from "react-router-dom";
 // import { connect } from "react-redux";
@@ -52,7 +53,7 @@ class LoginPage extends React.Component {
     // const { loggingIn } = this.props;
     const { username, password, submitted } = this.state;
     return (
-      <div className="col-md-6 col-md-offset-3">
+      <div className="login-page col-md-6 col-md-offset-3">
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div

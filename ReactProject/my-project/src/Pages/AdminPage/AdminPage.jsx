@@ -17,7 +17,7 @@ const AdminPage = () => {
     return(
         <div>
             <h1>Lorem ipsum</h1>
-            <button onClick={() => ctx.logout()} className='button'>Log out</button>
+            <button onClick={() => ctx.logout()} className='btn-logout btn btn-primary'>Log out</button>
             {ctx.getUser().userType === "admin" && <MenuAdmin/>}
             {/* <image></image> */}
             <Routes>

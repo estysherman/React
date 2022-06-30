@@ -10,6 +10,7 @@ import ViewProduct from '../../Components/Products/ViewProduct/ViewProduct';
 import LoginPage from '../../Components/LoginPage/LoginPage';
 import AdminPage from '../AdminPage/AdminPage';
 import About from '../../Components/About/About';
+import Logo from '../../assets/Logo.jpg';
 
 const HomePage = (props) =>{
     const ctx = useContext(Context);
@@ -25,10 +26,11 @@ const HomePage = (props) =>{
     }
     return(
         <div className='main'>
-            <img src="../../../public/images/Logo.jpg" alt="Logo" />
-            <h1>Shermans Market</h1>
-            {<button onClick={handleUserConnection} className='button'>{ctx.isLogdIn===true ? "Log out" : "Log in"}</button>}
-            {ctx.isLogdIn===true && <Link to={'/orders/'+ ctx.getUser().email} className='user'>Hallo {ctx.getUser().userName} </Link>}
+            <img className='logo-img' src={Logo} alt="Logo" />
+            {/* <h1>Shermans Market</h1> */}
+            {<button onClick={handleUserConnection} className='button-logging btn btn-primary'>{ctx.isLogdIn===true ? "Log out" : "Log in"}</button>}
+            {ctx.isLogdIn===true && <Link to={'/orders/'+ ctx.getUser().email} className='user btn btn-outline-primary'>Hello {ctx.getUser().userName} </Link>}
+            {/* <Link className='btn btn-outline-success user' to={"/cart"}>🛒 Cart</Link> */}
             <Menu/>
             {/* <image></image> */}
             <Routes>
